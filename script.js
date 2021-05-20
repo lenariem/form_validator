@@ -22,11 +22,28 @@ function isValidEmail(email) {
     return re.test(String(email).toLocaleLowerCase());
 }
 
+function getFieldName(input) {
+    const fieldName = input.id;
+    return fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
+}
+
+function checkRequired(inputArr) {
+    inputArr.forEach(input => {
+        if(input.value.trim() === '') {
+            showError(input, `${getFieldName(input)} is required`);
+        } else {
+            showSuccess(input);
+        }
+    });
+}
+
 
 form.addEventListener('submit', function(e) {
     e.preventDefault();
+
+    checkRequired([username, email, password, password2]);
     
-    if(username.value === '') {
+    /* if(username.value === '') {
         showError(username, 'User name is required');
     } else {
         showSuccess(username);
@@ -50,5 +67,5 @@ form.addEventListener('submit', function(e) {
         showError(password2, 'Passwords must match');
     } else {
         showSuccess(password2);
-    }
+    } */
 })
